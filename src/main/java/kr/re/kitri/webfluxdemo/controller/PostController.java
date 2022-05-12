@@ -15,13 +15,18 @@ public class PostController {
         this.postService = postService;
     }
 
-    // 전체 글 조회
+    /**
+     * 전체 글 조회
+     */
     @GetMapping("/posts")
     public Flux<Post> viewAllPosts() {
         Flux<Post> allPosts = postService.getAllPosts();
         return allPosts;
     }
 
+    /**
+     * 글 1건 조회
+     */
     @GetMapping("/posts/{id}")
     public Mono<Post> viewPostById(@PathVariable("id") Integer id) {
         Mono<Post> postById = postService.getPostById(id);
@@ -37,4 +42,19 @@ public class PostController {
         return Mono.empty();
     }
 
+    @GetMapping("/posts/count")
+    public Mono<Long> viewCount() {
+        Mono<Long> count = postService.getPostCount();
+        return count;
+    }
+
+    @GetMapping("/posts/title/{like}")
+    public Flux<Post> findPostsByTitleLike(@PathVariable("like") String like) {
+        return postService.findPostsByTitleLike(like);
+    }
+
+    @DeleteMapping("/posts/{id}")
+    public Mono<Void> removePost(@PathVariable("id") Integer id) {
+        return postService.deletePostById(id);
+    }
 }

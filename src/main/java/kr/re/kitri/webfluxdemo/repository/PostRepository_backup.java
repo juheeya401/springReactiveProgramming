@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Repository
-public class PostRepository {
+public class PostRepository_backup {
 
     private int sequenceId = 5;
     private List<Post> datas = Arrays.asList(
