@@ -4,9 +4,7 @@ import kr.re.kitri.webfluxdemo.model.Post;
 import kr.re.kitri.webfluxdemo.service.PostService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
-
-import java.util.List;
+import reactor.core.publisher.Flux;
 
 @RestController
 public class PostController {
@@ -19,8 +17,8 @@ public class PostController {
 
     // 전체 글 조회
     @GetMapping("/posts")
-    public Mono<List<Post>> viewAllPosts() {
-        Mono<List<Post>> allPosts = postService.getAllPosts();
+    public Flux<Post> viewAllPosts() {
+        Flux<Post> allPosts = postService.getAllPosts();
         return allPosts;
     }
 }

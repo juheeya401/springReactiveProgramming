@@ -3,9 +3,7 @@ package kr.re.kitri.webfluxdemo.service;
 import kr.re.kitri.webfluxdemo.model.Post;
 import kr.re.kitri.webfluxdemo.repository.PostRepository;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
-
-import java.util.List;
+import reactor.core.publisher.Flux;
 
 @Service
 public class PostService {
@@ -16,7 +14,7 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    public Mono<List<Post>> getAllPosts() {
+    public Flux<Post> getAllPosts() {
         return postRepository.selectAllPosts();
     }
 }
