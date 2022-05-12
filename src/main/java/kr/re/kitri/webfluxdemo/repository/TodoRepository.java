@@ -27,4 +27,8 @@ public class TodoRepository {
                 .retrieve()
                 .bodyToMono(Todo.class);
     }
+
+    public void insertTodo(Mono<Todo> todoMono) {
+
+    }
 }

@@ -17,7 +17,12 @@ public class TodoService {
         return todoRepository.retrieveTodos();
     }
 
+    // fake server 에서 데이터 가져와서 DB에 insert 하고 요청자에게 전달
     public Mono<Todo> getTodoById(Long id) {
-        return todoRepository.retrieveTodoById(id);
+        Mono<Todo> todoMono = todoRepository.retrieveTodoById(id);
+
+        todoRepository.insertTodo(todoMono);
+
+        return todoMono;
     }
 }
