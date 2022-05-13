@@ -29,6 +29,6 @@ public class TodoRepository {
     }
 
     public void insertTodo(Mono<Todo> todoMono) {
-        todoMono.subscribe(e -> System.out.println(e.toString()));
+        todoMono.subscribe(e -> System.out.println(e.toString())); // 찍힌다.
     }
 }
