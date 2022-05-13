@@ -2,6 +2,7 @@ package kr.re.kitri.webfluxdemo.service;
 
 import kr.re.kitri.webfluxdemo.model.Post;
 import kr.re.kitri.webfluxdemo.repository.PostR2DBCRepository;
+import kr.re.kitri.webfluxdemo.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -12,6 +13,7 @@ import reactor.core.publisher.Mono;
 public class PostService {
 
     private final PostR2DBCRepository postR2DBCRepository;
+    private final PostRepository postRepository;
 
     public Flux<Post> getAllPosts() {
         return postR2DBCRepository.findAll();
@@ -23,20 +25,15 @@ public class PostService {
                 .switchIfEmpty(Mono.just(new Post(0,0,"No data", "No data")));
     }
 
-    // insert는 안되고 update만 된다...?
+    // save()를 쓰니 update 는 되는데 insert 가 되지 않는다?
     public Mono<Post> setPost(Mono<Post> post) {
         // save는 Post 객체 자체를 파라미터로 넣어야 한다.
         //postR2DBCRepository.save(post);
-
-        System.out.println("원본>>" + post);
 
         // flatMap() 을 쓰면 Mono<Post> 타입을 -> Post 타입으로 변환된다.
         // 변환된 타입을 이용해서 save를 호출한다.
         // 리턴 타입은 저장결과를 리턴한다
         Mono<Post> postMono = post.flatMap(t -> postR2DBCRepository.save(t));
-
-        // 오잉 save()를 쓰니 update는 되는데 insert가 되지 않는다?
-        System.out.println("저장 결과>>" + postMono);
 
         return postMono;
     }
